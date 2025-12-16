@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tik Tak Top Course</title>
+
+  <!-- GOOGLE FONT: QUICKSAND (lebih lucu) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- BOOTSTRAP CSS -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+
+  <!-- CSS DALAM SATU FILE (PASTEL PINK) -->
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    /* BACKGROUND UTAMA: background.jpeg */
+    body {
+      font-family: "Quicksand", system-ui, -apple-system, BlinkMacSystemFont,
+        "Roboto", sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      background: url("background.jpeg") no-repeat center top fixed;
+      background-size: cover;
+      color: #111827;
+    }
+
+    /* Overlay putih + sedikit pink supaya lembut */
+    .page-wrapper {
+      background: linear-gradient(
+        180deg,
+        rgba(255, 245, 248, 0.94) 0%,
+        rgba(255, 255, 255, 0.96) 35%,
+        rgba(255, 255, 255, 0.99) 100%
+      );
+      min-height: 100vh;
+    }
+
+    section {
+      margin: 0;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: linear-gradient(
+        90deg,
+        rgba(255, 228, 245, 0.96),
+        rgba(219, 234, 254, 0.96)
+      );
+      backdrop-filter: blur(16px);
+      box-shadow: 0 4px 18px rgba(148, 163, 184, 0.35);
+    }
+
+    .navbar-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      object-fit: cover;
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.8);
+    }
+
+    .navbar .nav-link {
+      font-size: 0.95rem;
+    }
+
+    .navbar .nav-link.active {
+      font-weight: 700;
+      color: #ec4899 !important;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 96px 0 80px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 228, 245, 0.95) 0%,
+        rgba(219, 234, 254, 0.95) 40%,
+        rgba(240, 249, 255, 0.95) 100%
+      );
+    }
+
+    .hero-title {
+      font-weight: 800;
+      font-size: 2.6rem;
+      line-height: 1.2;
+    }
+
+    .hero-title span {
+      background: linear-gradient(90deg, #ec4899, #f97316);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: #4b5563;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border-radius: 26px;
+      padding: 24px 24px;
+      border: 1px solid #ffe4f1;
+      box-shadow: 0 24px 55px rgba(236, 72, 153, 0.25);
+    }
+
+    .hero-big-logo {
+      max-width: 260px;
+      width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto 18px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 8px rgba(250, 250, 255, 0.9),
+        0 18px 40px rgba(148, 163, 184, 0.55);
+    }
+
+    /* SECTION DASAR */
+    .section-padding {
+      padding: 80px 0;
+    }
+
+    .section-title {
+      font-size: 1.9rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .section-text {
+      color: #4b5563;
+      max-width: 720px;
+    }
+
+    #about {
+      background: #ffffff;
+    }
+
+    #harga {
+      background: linear-gradient(
+        180deg,
+        #fff1f2 0%,
+        #f9fafb 40%,
+        #eef2ff 100%
+      );
+    }
+
+    #pendaftaran {
+      background: #ffffff;
+    }
+
+    #informasi-layanan {
+      background: #fdf2ff;
+    }
+
+    #koleksi {
+      background: #ffffff;
+    }
+
+    #kelas {
+      background: linear-gradient(180deg, #eef2ff 0%, #fef2ff 100%);
+    }
+
+    /* KARTU HARGA */
+    .pricing-card {
+      border-radius: 24px;
+      border: 1px solid #ffe4f1;
+      background-color: #ffffff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .pricing-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 24px 65px rgba(236, 72, 153, 0.3);
+      border-color: #ec4899;
+    }
+
+    .pricing-card h3 {
+      font-size: 1.9rem;
+    }
+
+    .pro-card {
+      border: 2px solid #ec4899;
+      box-shadow: 0 26px 75px rgba(236, 72, 153, 0.35);
+      position: relative;
+    }
+
+    .pro-card::before {
+      content: "Paling Populer";
+      position: absolute;
+      top: 12px;
+      right: 18px;
+      background: linear-gradient(90deg, #f97316, #facc15);
+      color: #111827;
+      font-size: 0.7rem;
+      padding: 4px 12px;
+      border-radius: 999px;
+    }
+
+    /* FORM PENDAFTARAN */
+    #pendaftaran .card {
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      background-color: #ffffff;
+      box-shadow: 0 18px 45px rgba(148, 163, 184, 0.25);
+    }
+
+    .form-label {
+      font-weight: 600;
+    }
+
+    /* KARTU KOLEKSI & KELAS */
+    #koleksi .card,
+    #kelas .card {
+      border-radius: 24px;
+      border: 1px solid #e5e7eb;
+      background-color: #ffffff;
+      transition: transform 0.18s ease, box-shadow 0.18s ease;
+    }
+
+    #koleksi .card:hover,
+    #kelas .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 45px rgba(236, 72, 153, 0.35);
+    }
+
+    /* FOOTER */
+    footer h5 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    footer p {
+      font-size: 0.9rem;
+    }
+
+    /* TOAST */
+    #toastContainer {
+      z-index: 1080;
+    }
+
+    .toast {
+      border-radius: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="#home">
+          <img
+            src="Logo tik tak top.png"
+            alt="Logo Tik Tak Top"
+            class="navbar-logo me-2"
+          />
+          <span class="fw-bold text-primary">Tik Tak Top</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-lg-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="#home">Home</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#layanan"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                Layanan
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="#pendaftaran"
+                    >Pendaftaran Anggota</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#informasi-layanan"
+                    >Informasi Layanan</a
+                  >
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="#koleksi">Koleksi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#kelas">Kelas</a>
+            </li>
+            <li class="nav-item ms-lg-3">
+              <a class="btn btn-primary btn-sm" href="#pendaftaran"
+                >Daftar Sekarang</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero d-flex align-items-center">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <h1 class="hero-title mb-3">
+              Kursus Komputer Seru<br />
+              <span>Mulai dari Rp199.000</span>
+            </h1>
+            <p class="hero-subtitle mb-4">
+              Belajar Desain Grafis, Web Programming, dan Data Analysis di
+              lembaga kursus <strong>“Tik Tak Top”</strong> dengan suasana fun
+              dan materi up to date.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+              <a href="#pendaftaran" class="btn btn-primary btn-lg"
+                >Daftar Sekarang</a
+              >
+              <a href="#kelas" class="btn btn-outline-primary btn-lg"
+                >Lihat Kelas</a
+              >
+            </div>
+          </div>
+          <div class="col-lg-6 text-center">
+            <img
+              src="Logo tik tak top.png"
+              alt="Logo Tik Tak Top Course"
+              class="hero-big-logo mb-3"
+            />
+            <div class="hero-card shadow-lg d-inline-block text-start">
+              <h5 class="mb-3">Kenapa pilih Tik Tak Top?</h5>
+              <ul class="list-unstyled mb-0">
+                <li>• Instruktur berpengalaman dan ramah</li>
+                <li>• Materi step-by-step dari dasar</li>
+                <li>• Jadwal fleksibel untuk pelajar & pekerja</li>
+                <li>• Sertifikat resmi setelah lulus</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="section-padding">
+      <div class="container">
+        <h2 class="section-title">Tentang Tik Tak Top</h2>
+        <p class="section-text">
+          Tik Tak Top adalah lembaga kursus komputer yang berfokus pada
+          pengembangan skill praktis di bidang teknologi. Setiap kelas didesain
+          agar mudah diikuti, bahkan untuk pemula.
+        </p>
+      </div>
+    </section>
+
+    <!-- PAKET KURSUS -->
+    <section id="harga" class="section-padding">
+      <div class="container">
+        <h2 class="section-title text-center mb-4">Paket Kursus</h2>
+        <p class="text-center mb-5 section-text mx-auto">
+          Pilih paket yang paling pas untuk kamu. Bisa mulai dari Basic, lalu
+          upgrade ke Pro atau Premium kapan saja.
+        </p>
+
+        <div class="row g-4 justify-content-center">
+          <!-- BASIC -->
+          <div class="col-md-4">
+            <div class="card pricing-card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-center mb-3">Basic</h5>
+                <h3 class="text-center text-primary mb-3">Rp199.000</h3>
+                <p class="text-center text-muted mb-4">
+                  Untuk kamu yang baru mulai belajar.
+                </p>
+                <ul class="list-unstyled mb-4">
+                  <li>✔ 1 program kursus apa saja</li>
+                  <li>✔ Modul PDF</li>
+                  <li>✔ Grup diskusi</li>
+                  <li>✖ Rekaman video</li>
+                </ul>
+                <a
+                  href="#pendaftaran"
+                  class="btn btn-outline-primary w-100 mt-auto"
+                  >Pilih Basic</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- PRO -->
+          <div class="col-md-4">
+            <div class="card pricing-card h-100 shadow pro-card">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-center mb-3">Pro</h5>
+                <h3 class="text-center text-primary mb-3">Rp349.000</h3>
+                <p class="text-center text-muted mb-4">
+                  Paling favorit untuk pelajar & mahasiswa.
+                </p>
+                <ul class="list-unstyled mb-4">
+                  <li>✔ 2 program kursus</li>
+                  <li>✔ Modul & latihan</li>
+                  <li>✔ Rekaman video</li>
+                  <li>✔ Sertifikat kelulusan</li>
+                </ul>
+                <a href="#pendaftaran" class="btn btn-primary w-100 mt-auto"
+                  >Pilih Pro</a
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- PREMIUM -->
+          <div class="col-md-4">
+            <div class="card pricing-card h-100 shadow-sm">
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title text-center mb-3">Premium</h5>
+                <h3 class="text-center text-primary mb-3">Rp499.000</h3>
+                <p class="text-center text-muted mb-4">
+                  Untuk kamu yang ingin full experience.
+                </p>
+                <ul class="list-unstyled mb-4">
+                  <li>✔ Semua program kursus</li>
+                  <li>✔ Konsultasi 1-on-1</li>
+                  <li>✔ Materi premium</li>
+                  <li>✔ Sertifikat + rekomendasi</li>
+                </ul>
+                <a
+                  href="#pendaftaran"
+                  class="btn btn-outline-primary w-100 mt-auto"
+                  >Pilih Premium</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM PENDAFTARAN -->
+    <section id="pendaftaran" class="section-padding">
+      <div class="container">
+        <h2 class="section-title">Form Pendaftaran Anggota</h2>
+        <p class="section-text mb-4">
+          Isi data lengkapmu di bawah ini untuk mendaftar sebagai peserta kursus
+          di Tik Tak Top.
+        </p>
+
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <form id="formPendaftaran">
+                  <div class="mb-3">
+                    <label for="nama_lengkap" class="form-label"
+                      >Nama Lengkap</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nama_lengkap"
+                      name="nama_lengkap"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="program_kursus" class="form-label"
+                      >Program Kursus</label
+                    >
+                    <select
+                      class="form-select"
+                      id="program_kursus"
+                      name="program_kursus"
+                      required
+                    >
+                      <option value="">-- Pilih Program --</option>
+                      <option value="Desain Grafis (Rp250.000)">
+                        Desain Grafis (Rp250.000)
+                      </option>
+                      <option value="Web Programming (Rp300.000)">
+                        Web Programming (Rp300.000)
+                      </option>
+                      <option value="Data Analysis (Rp350.000)">
+                        Data Analysis (Rp350.000)
+                      </option>
+                      <option value="Kelas Dasar Web (Rp220.000)">
+                        Kelas Dasar Web (Rp220.000)
+                      </option>
+                      <option value="Kelas Python Pemula (Rp280.000)">
+                        Kelas Python Pemula (Rp280.000)
+                      </option>
+                      <option value="Kelas Excel untuk Data (Rp200.000)">
+                        Kelas Excel untuk Data (Rp200.000)
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="nik" class="form-label"
+                      >NIK / Nomor Induk Siswa</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="nik"
+                      name="nik"
+                      required
+                    />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="alamat" class="form-label">Alamat</label>
+                    <textarea
+                      class="form-control"
+                      id="alamat"
+                      name="alamat"
+                      rows="3"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="no_whatsapp" class="form-label"
+                      >Nomor WhatsApp</label
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="no_whatsapp"
+                      name="no_whatsapp"
+                      required
+                    />
+                  </div>
+
+                  <button type="submit" class="btn btn-primary">
+                    Kirim Pendaftaran
+                  </button>
+                  <span id="status" class="ms-3 small text-muted"></span>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-5">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="mb-3">Informasi Singkat</h5>
+                <p class="mb-1">• Durasi: 6–8 pertemuan per kursus</p>
+                <p class="mb-1">• Sistem belajar: Online via Zoom / Google Meet</p>
+                <p class="mb-1">
+                  • Sertifikat: Diberikan setelah menyelesaikan tugas akhir
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INFORMASI LAYANAN -->
+    <section id="informasi-layanan" class="section-padding">
+      <div class="container">
+        <h2 class="section-title">Informasi Layanan</h2>
+        <p class="section-text">
+          Tik Tak Top menyediakan kursus reguler, privat, dan in-house training
+          untuk sekolah maupun instansi. Jadwal bisa disesuaikan dengan
+          kebutuhan peserta.
+        </p>
+      </div>
+    </section>
+
+    <!-- KOLEKSI -->
+    <section id="koleksi" class="section-padding">
+      <div class="container">
+        <h2 class="section-title">Koleksi Materi</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title">Modul PDF</h5>
+                <p class="card-text">
+                  Modul lengkap yang bisa diunduh dan dipelajari kapan saja.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title">Video Rekaman</h5>
+                <p class="card-text">
+                  Rekaman setiap sesi pembelajaran untuk diulang kembali.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title">Latihan & Proyek</h5>
+                <p class="card-text">
+                  Latihan praktis dan mini project sesuai materi kursus.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- KELAS (dengan harga) -->
+    <section id="kelas" class="section-padding">
+      <div class="container">
+        <h2 class="section-title">Daftar Kelas</h2>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title">Kelas Dasar Web</h5>
+                <p class="card-text">
+                  Belajar HTML, CSS, dan dasar-dasar web responsif. Harga:
+                  <strong>Rp220.000</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title">Kelas Python Pemula</h5>
+                <p class="card-text">
+                  Dasar Python untuk otomasi dan analisis data. Harga:
+                  <strong>Rp280.000</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-body">
+                <h5 class="card-title">Kelas Excel untuk Data</h5>
+                <p class="card-text">
+                  Mengolah data, pivot table, dan chart di Excel. Harga:
+                  <strong>Rp200.000</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-light py-4 mt-auto">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <h5>Alamat</h5>
+            <p>Jl. Kaliurang No. 123, Kota Yogyakarta</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Contact</h5>
+            <p>Email: info@tiktaktop.com<br />Telp/WA: 0812-3456-7890</p>
+          </div>
+          <div class="col-md-4">
+            <h5>Sosial Media</h5>
+            <p>Instagram: @tiktaktopcourse<br />Facebook: Tik Tak Top Course</p>
+          </div>
+        </div>
+        <div class="text-center mt-3">
+          <small>&copy; 2025 Tik Tak Top Course</small>
+        </div>
+      </div>
+    </footer>
+
+    <!-- TOAST NOTIFIKASI -->
+    <div
+      id="toastContainer"
+      class="toast-container position-fixed top-0 end-0 p-3"
+    >
+      <div
+        id="formToast"
+        class="toast align-items-center text-bg-success border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body" id="toastMessage">
+            Data berhasil dikirim!
+          </div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOOTSTRAP JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- SCRIPT KIRIM DATA KE GOOGLE SHEETS + NOTIF NAMA -->
+  <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxBiBUcyPJjKx-FyBqn688pz03oN7GX8YTxpql7NBXbNtDY2U2hJ8Wm16x4IZ0hvCI5/exec"; // ganti kalau sudah punya Web App
+    const form = document.getElementById("formPendaftaran");
+    const statusText = document.getElementById("status");
+
+    const toastEl = document.getElementById("formToast");
+    const toastMessage = document.getElementById("toastMessage");
+    const toastBootstrap =
+      toastEl && window.bootstrap
+        ? bootstrap.Toast.getOrCreateInstance(toastEl)
+        : null;
+
+    if (form) {
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        if (statusText) statusText.textContent = "Mengirim data...";
+
+        const namaInput = document.getElementById("nama_lengkap");
+        const nama = namaInput ? namaInput.value : "";
+
+        fetch(scriptURL, {
+          method: "POST",
+          body: new FormData(form),
+        })
+          .then(() => {
+            if (statusText) statusText.textContent = "Berhasil dikirim!";
+            if (toastMessage)
+              toastMessage.textContent = `Terima kasih, ${nama}, sudah mendaftar di Tik Tak Top!`;
+            if (toastEl && toastBootstrap) {
+              toastEl.classList.remove("text-bg-danger");
+              toastEl.classList.add("text-bg-success");
+              toastBootstrap.show();
+            }
+            form.reset();
+          })
+          .catch((error) => {
+            console.error("Error!", error);
+            if (statusText) statusText.textContent = "Gagal mengirim data.";
+            if (toastMessage)
+              toastMessage.textContent =
+                "Terjadi kesalahan, silakan coba lagi.";
+            if (toastEl && toastBootstrap) {
+              toastEl.classList.remove("text-bg-success");
+              toastEl.classList.add("text-bg-danger");
+              toastBootstrap.show();
+            }
+          });
+      });
+    }
+  </script>
+</body>
+</html>
