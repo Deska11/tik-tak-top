@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tik Tak Top Course</title>
 
-  <!-- GOOGLE FONT: QUICKSAND (lebih lucu) -->
+  <!-- GOOGLE FONT: QUICKSAND -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -575,7 +575,9 @@
               <div class="card-body">
                 <h5 class="mb-3">Informasi Singkat</h5>
                 <p class="mb-1">• Durasi: 6–8 pertemuan per kursus</p>
-                <p class="mb-1">• Sistem belajar: Online via Zoom / Google Meet</p>
+                <p class="mb-1">
+                  • Sistem belajar: Online via Zoom / Google Meet
+                </p>
                 <p class="mb-1">
                   • Sertifikat: Diberikan setelah menyelesaikan tugas akhir
                 </p>
@@ -734,7 +736,8 @@
 
   <!-- SCRIPT KIRIM DATA KE GOOGLE SHEETS + NOTIF NAMA -->
   <script>
-    const scriptURL = "https://script.google.com/macros/s/AKfycbxBiBUcyPJjKx-FyBqn688pz03oN7GX8YTxpql7NBXbNtDY2U2hJ8Wm16x4IZ0hvCI5/exec"; // ganti kalau sudah punya Web App
+    const scriptURL =
+      "https://script.google.com/macros/s/AKfycbz5oesGtkUX_D5oLzqUgSQak8AyfAuojcN6Jaq9t_tWhVeacNvK-m-A2ZDjja0auvC-/exec";
     const form = document.getElementById("formPendaftaran");
     const statusText = document.getElementById("status");
 
@@ -757,7 +760,10 @@
           method: "POST",
           body: new FormData(form),
         })
-          .then(() => {
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Jaringan bermasalah");
+            }
             if (statusText) statusText.textContent = "Berhasil dikirim!";
             if (toastMessage)
               toastMessage.textContent = `Terima kasih, ${nama}, sudah mendaftar di Tik Tak Top!`;
